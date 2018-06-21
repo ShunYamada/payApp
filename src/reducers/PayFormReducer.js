@@ -4,7 +4,10 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  card: ''
+  cardNumber: '',
+  expiryMonth: '',
+  expiryYear: '',
+  cvc: ''
 };
 
 export default (state = INITIAL_STATE, action) => {

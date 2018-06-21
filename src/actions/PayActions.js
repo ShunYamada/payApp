@@ -1,9 +1,7 @@
 import firebase from 'firebase';
 import { PAY_CREATE, PAY_UPDATE } from './types';
 import _ from 'lodash';
-import ENV from '../config/env';
-
-console.log(ENV.API_KEY);
+import PUBLIC_STRIPE_API from '../config/env';
 
 const stripeUrl = 'https://api.stripe.com/v1/';
 
@@ -27,7 +25,7 @@ export const createCardToken = (cardNumber, expiryMonth, expiryYear, cvc) => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Bearer ${publicStripeKey}`,
+      Authorization: `Bearer ${PUBLIC_STRIPE_API}`,
     },
     body: formBody,
   })

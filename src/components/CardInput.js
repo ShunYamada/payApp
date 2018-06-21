@@ -80,9 +80,9 @@ class CardInput extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { card } = state.payForm;
+  const { cardNumber, expiryMonth, expiryYear, cvc } = state.payForm;
 
-  return { card };
+  return { cardNumber, expiryMonth, expiryYear, cvc };
 };
 
 export default connect(mapStateToProps, {
