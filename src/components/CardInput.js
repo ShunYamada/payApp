@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { payUpdate, payCreate } from '../actions';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -14,9 +14,9 @@ class CardInput extends Component {
   });
 
   onButtonPress() {
-    const { cardNumber, expiryMonth, expiryYear, cvc, navigation } = this.props;
+    const { cardNumber, expiryMonth, expiryYear, cvc } = this.props;
 
-    this.props.payCreate({ cardNumber, expiryMonth, expiryYear, cvc, navigation });
+    this.props.payCreate({ cardNumber, expiryMonth, expiryYear, cvc });
   }
 
   render() {

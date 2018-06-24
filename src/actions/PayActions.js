@@ -4,6 +4,7 @@ import _ from 'lodash';
 import PUBLIC_STRIPE_API from '../config/env';
 
 const stripeUrl = 'https://api.stripe.com/v1/';
+const publicStripeKey = PUBLIC_STRIPE_API;
 
 export const createCardToken = (cardNumber, expiryMonth, expiryYear, cvc) => {
   const cardDetails = {
@@ -25,7 +26,7 @@ export const createCardToken = (cardNumber, expiryMonth, expiryYear, cvc) => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Bearer ${PUBLIC_STRIPE_API}`,
+      Authorization: `Bearer ${publicStripeKey}`,
     },
     body: formBody,
   })
@@ -42,16 +43,18 @@ export const payUpdate = ({ prop, value }) => {
   };
 };
 
-export const payCreate = (cardNumber, expiryMonth, expiryYear, cvc) => {
-  createCardToken(cardNumber, expiryMonth, expiryYear, cvc)
-  .then(token => {
-    firebase.database().ref(`/cards`)
-      .push({
-        token
-      })
-      .then(() => {
-      dispatch({ type: PAY_CREATE });
-      navigation.navigate('CardInput');
+export const payCreate = ({cardNumber, expiryMonth, expiryYear, cvc}) => {
+  return (dispatch) => {
+    createCardToken(cardNumber, expiryMonth, expiryYear, cvc)
+    .then(token => {
+      firebase.database().ref(`/cards/`)
+        .push({
+          tokenId: token.id
+        })
+        .then(() => {
+        dispatch({ type: PAY_CREATE });
+        navigation.navigate('CardInput');
+      });
     });
-  });
+  }
 }

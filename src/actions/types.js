@@ -1,2 +1,4 @@
-export const PAY_UPDATE = 'PAY_update';
-export const PAY_CREATE = 'PAY_create';
+export const PAY_UPDATE = 'pay_update';
+export const PAY_CREATE = 'pay_create';
+export const PURCHASE_UPDATE = 'purchase_update';
+export const PURCHASE_CREATE = 'purchase_create';
