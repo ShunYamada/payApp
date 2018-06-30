@@ -26,7 +26,7 @@ export const createCardToken = (cardNumber, expiryMonth, expiryYear, cvc) => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Bearer ${publicStripeKey}`,
+      Authorization: `Bearer sk_test_gu7GsGSOzFFxowCAsnlHwxn2`,
     },
     body: formBody,
   })
@@ -48,6 +48,22 @@ export const payCreate = ({cardNumber, expiryMonth, expiryYear, cvc}) => {
     createCardToken(cardNumber, expiryMonth, expiryYear, cvc)
     .then(token => {
       firebase.database().ref(`/cards/`)
+        .push({
+          tokenId: token.id
+        })
+        .then(() => {
+        dispatch({ type: PAY_CREATE });
+        navigation.navigate('CardInput');
+      });
+    });
+  }
+}
+
+export const payPurchase = () => {
+  return (dispatch) => {
+    createCharge(400, 100, 'tok_1Cg3LsAIKMJM6hxyEIRbEAe2')
+    .then(token => {
+      firebase.database().ref(`/pays/`)
         .push({
           tokenId: token.id
         })
